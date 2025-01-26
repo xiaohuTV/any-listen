@@ -10,30 +10,53 @@ jobs:
     runs-on: ubuntu-latest
     if: endsWith(github.ref, '-desktop')
     steps:
+      - name: Checkout desktop app
+        uses: actions/checkout@v4
+        with:
+          repository: any-listen/any-listen-desktop
+          token: ${{ secrets.GH_DESKTOP_PAT }}
+
       - name: Checkout monorepo
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          repository: any-listen/any-listen-desktop
+          path: any-listen
+          token: ${{ github.token }}
 
-      - name: Sync desktop-app code
-        run: |
-          git clone https://github.com/any-listen/any-listen-desktop.git
-          cd any-listen-desktop
-          git checkout ${{ github.ref }}
-          git push origin ${{ github.ref }}
+      - name: Checkout desktop app
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_DESKTOP_PAT }}
+      - run: |
+          git config user.name "lyswhut"
+          git config user.email "lyswhut@qq.com"
+          git add .
+          git commit -m "release ${{ github.tag_name }}"
+          git push
 
   sync-web-server:
     runs-on: ubuntu-latest
     if: endsWith(github.ref, '-webserver')
     steps:
+      - name: Checkout web server
+        uses: actions/checkout@v4
+        with:
+          repository: any-listen/any-listen-web-server
+          token: ${{ secrets.GH_WEB_SERVER_PAT }}
+
       - name: Checkout monorepo
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          path: any-listen
+          token: ${{ github.token }}
 
-      - name: Sync web-server code
-        run: |
-          git clone https://github.com/any-listen/any-listen-web-server.git
-          cd any-listen-web
-          git checkout ${{ github.ref }}
-          git push origin ${{ github.ref }}
+      - name: Checkout web server
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GH_WEB_SERVER_PAT }}
+      - run: |
+          git config user.name "lyswhut"
+          git config user.email "lyswhut@qq.com"
+          git add .
+          git commit -m "release ${{ github.tag_name }}"
+          git push
