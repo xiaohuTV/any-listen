@@ -1,0 +1,10 @@
+{
+  "name": "@shared/theme",
+  "scripts": {
+    "build:theme": "node createThemes.js"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@any-listen/eslint": "workspace:@shared/eslint@*"
+  }
+}

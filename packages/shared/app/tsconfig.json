@@ -1,0 +1,13 @@
+{
+  "extends": "./node_modules/@any-listen/eslint/tsconfig.node.json",
+  "compilerOptions": {
+    // "typeRoots": [
+    //   "./types"
+    // ],
+    "baseUrl": "./",
+    // "paths": {
+    //   "@/*": ["./modules/*"],
+    // },
+    "types": ["@any-listen/types", "../scripts/node_modules/vite/client"]
+  }
+}

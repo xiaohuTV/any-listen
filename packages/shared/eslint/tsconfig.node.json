@@ -1,0 +1,15 @@
+{
+  // https://github.com/tsconfig/bases#recommended-tsconfigjson
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": false,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "composite": true,
+    "outDir": "./dist",
+    "baseUrl": "./src" /* Specify the base directory to resolve non-relative module names. */
+  }
+}

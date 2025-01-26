@@ -1,0 +1,39 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  sync-desktop-app:
+    runs-on: ubuntu-latest
+    if: endsWith(github.ref, '-desktop')
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Sync desktop-app code
+        run: |
+          git clone https://github.com/any-listen/any-listen-desktop.git
+          cd any-listen-desktop
+          git checkout ${{ github.ref }}
+          git push origin ${{ github.ref }}
+
+  sync-web-server:
+    runs-on: ubuntu-latest
+    if: endsWith(github.ref, '-webserver')
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Sync web-server code
+        run: |
+          git clone https://github.com/any-listen/any-listen-web.git
+          cd any-listen-web
+          git checkout ${{ github.ref }}
+          git push origin ${{ github.ref }}

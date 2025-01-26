@@ -1,0 +1,80 @@
+<script lang="ts">
+  import { skipNext, skipPrev, togglePlay } from '@/modules/player/actions'
+  import { playStatus } from '@/modules/player/reactive.svelte'
+  import { t } from '@/plugins/i18n'
+  import { onDomSizeChanged } from '@any-listen/web'
+  import { onMount } from 'svelte'
+  let domContainer: HTMLDivElement | null = $state(null)
+  let iconSize = $state('42px')
+  let iconSize2 = $state('46px')
+
+  onMount(() => {
+    if (!domContainer) return
+    return onDomSizeChanged(domContainer, (width, height) => {
+      iconSize = `${Math.trunc(height * 0.52)}px`
+      iconSize2 = `${Math.trunc(height * 0.65)}px`
+    })
+  })
+</script>
+
+<div class="container" bind:this={domContainer}>
+  <button class="btn" aria-label={$t('player__prev')} onclick={async () => skipPrev()}>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width={iconSize} height={iconSize} viewBox="0 0 24 24">
+      <use xlink:href="#icon-skip-prev" />
+    </svg>
+  </button>
+  <button class="btn" aria-label={$playStatus ? $t('player__pause') : $t('player__play')} onclick={togglePlay}>
+    {#if $playStatus}
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width={iconSize2} height={iconSize2} viewBox="0 0 24 24">
+        <use xlink:href="#icon-pause" />
+      </svg>
+    {:else}
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width={iconSize2} height={iconSize2} viewBox="0 0 24 24">
+        <use xlink:href="#icon-play" />
+      </svg>
+    {/if}
+  </button>
+  <button class="btn" aria-label={$t('player__next')} onclick={async () => skipNext()}>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width={iconSize} height={iconSize} viewBox="0 0 24 24">
+      <use xlink:href="#icon-skip-next" />
+    </svg>
+  </button>
+</div>
+
+<style lang="less">
+  .container {
+    flex: none;
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    gap: 14px;
+  }
+  .btn {
+    flex: none;
+    // height: 52%;
+    // margin-top: -2px;
+    transition: @transition-fast;
+    transition-property: color, opacity;
+    color: var(--color-button-font);
+    opacity: 1;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    // padding: 5px;
+    padding: 0;
+    display: flex;
+
+    // svg {
+    //   filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.2));
+    // }
+    &:hover {
+      opacity: 0.8;
+    }
+    &:active {
+      opacity: 0.6;
+    }
+  }
+</style>

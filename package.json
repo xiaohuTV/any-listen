@@ -1,0 +1,28 @@
+{
+  "name": "any-listen",
+  "scripts": {
+    "dev": "pnpm dev:electron",
+    "dev:electron": "pnpm -F @shared/scripts dev:electron",
+    "dev:web": "pnpm -F @shared/scripts dev:web",
+    "build:theme": "pnpm -F @shared/theme build:theme",
+    "build": "pnpm build:ele",
+    "build:dir": "pnpm -F @shared/scripts build:electron:dir",
+    "build:ele": "pnpm -F @shared/scripts build:electron",
+    "build:web": "pnpm -F @shared/scripts build:web",
+    "cldep": "rm -rf node_modules && pnpm -r exec rm -rf node_modules",
+    "postinstall": "pnpm -F electron rebuild:deps && pnpm -F web-server rebuild"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "pnpm": {
+    "overrides": {
+      "depd": "^2.0.0"
+    }
+  },
+  "devDependencies": {
+    "@any-listen/eslint": "workspace:@shared/eslint@^",
+    "prettier": "^3.4.2"
+  },
+  "packageManager": "pnpm@9.15.2"
+}

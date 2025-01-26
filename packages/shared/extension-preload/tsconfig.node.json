@@ -1,0 +1,9 @@
+{
+  "extends": "./node_modules/@any-listen/eslint/tsconfig.node.json",
+  "compilerOptions": {
+    // "composite": true,
+    // "module": "CommonJS",
+    // "moduleResolution": "Node",
+  },
+  "include": ["eslint.config.mjs", "vite.config.ts"]
+}

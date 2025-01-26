@@ -1,0 +1,10 @@
+{
+  "extends": "./node_modules/@any-listen/eslint/tsconfig.node.json",
+  "compilerOptions": {
+    // "typeRoots": [
+    //   "./types"
+    // ],
+    "types": ["@any-listen/types"]
+  },
+  "include": ["**/*.d.ts", "**/*.ts", "**/*.js"]
+}

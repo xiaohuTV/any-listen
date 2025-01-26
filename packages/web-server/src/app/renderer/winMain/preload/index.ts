@@ -1,0 +1,63 @@
+import type { IPCSocket } from '@/preload/ws'
+import { createClientApp, createExposeApp } from './app'
+import { createClientPlayer, createExposePlayer } from './player'
+import { createClientData } from './data'
+import { createClientHotkey, createExposeHotkey } from './hotkey'
+import { createClientList, createExposeList } from './list'
+import { createClientMusic } from './music'
+import { createClientDislike, createExposeDislike } from './dislike'
+import { createClientTheme, createExposeTheme } from './theme'
+import { createClientExtension, createExposeExtension } from './extension'
+import { createClientSoundEffect } from './soundEffect'
+import { createIPC } from '@/preload/ipc'
+
+console.log('preload win main')
+
+export type ExposeFunctions = AnyListen.IPC.ClientIPCActions<IPCSocket>
+export type ExposeServerFunctions = Omit<
+  AnyListen.IPC.ServerIPC,
+  'showOpenDialog' | 'showSaveDialog' | 'openDirInExplorer' | 'openDevTools'
+>
+
+const exposeObj: ExposeFunctions = {
+  ...createExposeApp(),
+  ...createExposePlayer(),
+  ...createExposeHotkey(),
+  ...createExposeList(),
+  ...createExposeDislike(),
+  ...createExposeTheme(),
+  ...createExposeExtension(),
+}
+
+let host = `${location.origin}${location.pathname}`
+if (import.meta.env.DEV) host = 'http://localhost:9500'
+
+const connectIPCService: AnyListen.IPC.ConnectIPCSrivice = (onConnected, onDisconnected, onFailed, onLogout, pwd) => {
+  createIPC({
+    exposeObj,
+    host,
+    authCode: pwd,
+    winType: 'main',
+    onDisconnected,
+    onFailed,
+    onLogout,
+    onConnected(ipcSocket) {
+      const ipc: ExposeServerFunctions = {
+        ...createClientApp(ipcSocket),
+        ...createClientPlayer(ipcSocket),
+        ...createClientData(ipcSocket),
+        ...createClientHotkey(ipcSocket),
+        ...createClientList(ipcSocket),
+        ...createClientMusic(ipcSocket),
+        ...createClientDislike(ipcSocket),
+        ...createClientTheme(ipcSocket),
+        ...createClientExtension(ipcSocket),
+        ...createClientSoundEffect(ipcSocket),
+      }
+      onConnected(ipc as AnyListen.IPC.ServerIPC)
+    },
+  })
+}
+
+// @ts-expect-error
+window.__anylisten_ipc_init__ = connectIPCService

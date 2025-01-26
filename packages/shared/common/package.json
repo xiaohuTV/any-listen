@@ -1,0 +1,7 @@
+{
+  "name": "@shared/common",
+  "devDependencies": {
+    "@any-listen/eslint": "workspace:@shared/eslint@*",
+    "@any-listen/types": "workspace:@shared/types@*"
+  }
+}
