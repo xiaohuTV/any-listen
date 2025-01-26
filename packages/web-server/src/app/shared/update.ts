@@ -44,14 +44,14 @@ class UpdateEvent {
 
 const enName = 'YW55LWxpc3Rlbg=='
 const name = Buffer.from(enName, 'base64').toString()
-const orgName = `@${name}`
+const orgName = `@${name}-web-server`
 const address = [
   [`https://raw.githubusercontent.com/${orgName}/${name}/main/publish/version.json`, 'direct'],
-  [`https://registry.npmjs.org/${orgName}/${name}-web-version/latest`, 'npm'],
+  [`https://registry.npmjs.org/${orgName}/${name}/latest`, 'npm'],
   [`https://cdn.jsdelivr.net/gh/${orgName}/${name}/publish/version.json`, 'direct'],
   [`https://fastly.jsdelivr.net/gh/${orgName}/${name}/publish/version.json`, 'direct'],
   [`https://gcore.jsdelivr.net/gh/${orgName}/${name}/publish/version.json`, 'direct'],
-  [`https://registry.npmmirror.com/${orgName}/${name}-web-versions/latest`, 'npm'],
+  [`https://registry.npmmirror.com/${orgName}/${name}/latest`, 'npm'],
   ['http://cdn.stsky.cn/lx-music/mobile/version.json', 'direct'],
 ] as const
 
