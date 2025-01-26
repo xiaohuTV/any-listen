@@ -33,7 +33,7 @@ jobs:
 
       - name: Sync web-server code
         run: |
-          git clone https://github.com/any-listen/any-listen-web.git
+          git clone https://github.com/any-listen/any-listen-web-server.git
           cd any-listen-web
           git checkout ${{ github.ref }}
           git push origin ${{ github.ref }}
