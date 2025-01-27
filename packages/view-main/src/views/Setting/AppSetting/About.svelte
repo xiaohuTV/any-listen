@@ -27,10 +27,10 @@
     <Btn
       link
       onclick={() => {
-        void openUrl('https://github.com/lyswhut/any-listen#readme')
+        void openUrl('https://github.com/any-listen/any-listen#readme')
       }}
     >
-      https://github.com/lyswhut/any-listen
+      https://github.com/any-listen/any-listen
     </Btn>
   </p>
   <Btn onclick={donate}>{$t('donate')}</Btn>
