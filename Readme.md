@@ -12,7 +12,7 @@ Note: The project is still under active development and only provides a web serv
 
 Use Example:
 
-create file `/data/config.cjs`
+create file `data/config.cjs`
 
 ```js
 const config = {
@@ -37,7 +37,7 @@ module.exports = config
 ```
 
 ```bash
-docker run --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=DATA_PATH=/server/data --volume=/home/music:/music --volume=/data:/server/data -p 8080:9500 -d test:latest
+docker run --volume=/home/music:/music --volume=/data:/server/data -p 8080:9500 -d test:latest
 ```
 
 Available environment variables
