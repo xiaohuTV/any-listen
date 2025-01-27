@@ -40,6 +40,19 @@ module.exports = config
 docker run --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=DATA_PATH=/server/data --volume=/home/music:/music --volume=/data:/server/data -p 8080:9500 -d test:latest
 ```
 
+Available environment variables
+
+|   Variable Name    | Description                                                                                                 |
+| :----------------: | ----------------------------------------------------------------------------------------------------------- |
+|       `PORT`       | Bind port, Default `9500`                                                                                   |
+|     `BIND_IP`      | Bind IP, Default `127.0.0.1`, Use `0.0.0.0` to accept all IPv4 requests, use `::` to accept all IP requests |
+|   `PROXY_HEADER`   | Proxy forwarding request headers, `x-real-ip`, If set, it is automatically enabled                          |
+| `ALLOW_PUBLIC_DIR` | Local directories that are allowed to be accessed, Use `,` to separate multiple                             |
+|    `DATA_PATH`     | Data path, Default `./data`                                                                                 |
+|    `LOGIN_PWD`     | Login Password                                                                                              |
+|   `CONFIG_PATH`    | Config file path, Default `./data/config.js`                                                                |
+|     `LOG_PATH`     | Log path, Default `./data/logs`                                                                             |
+
 ### Compile from source code
 
 ```bash

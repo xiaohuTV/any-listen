@@ -88,6 +88,10 @@ if (envParams.PROXY_HEADER) {
   global.anylisten.config['proxy.enabled'] = true
   global.anylisten.config['proxy.header'] = envParams.PROXY_HEADER
 }
+if (envParams.LOGIN_PWD) global.anylisten.config.password = envParams.LOGIN_PWD
+if (envParams.ALLOW_PUBLIC_DIR) {
+  global.anylisten.config.allowPublicDir = envParams.ALLOW_PUBLIC_DIR.split(',')
+}
 global.anylisten.config.allowPublicDir = global.anylisten.config.allowPublicDir.map((p) => {
   let newP = p.replace(/\\|\//g, path.sep)
   if (!newP.endsWith(path.sep)) return newP + path.sep

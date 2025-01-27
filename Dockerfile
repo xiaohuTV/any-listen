@@ -35,8 +35,7 @@ RUN apk add --update --no-cache icu-data-full nodejs tzdata
 COPY --from=builder ./source-code/build ./
 
 # VOLUME /server/data
-ENV DATA_PATH="/server/data/data"
-ENV LOG_PATH="/server/data/logs"
+ENV DATA_PATH="/server/data"
 
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List
 # ENV TZ=Asia/Shanghai
