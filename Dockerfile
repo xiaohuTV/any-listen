@@ -19,7 +19,8 @@ RUN apk add --update --no-cache \
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN npm install corepack -g && corepack enable pnpm && pnpm fetch
+RUN npm install corepack -g && corepack enable pnpm
+RUN pnpm fetch
 
 COPY . ./
 RUN pnpm i --offline --frozen-lockfile \
