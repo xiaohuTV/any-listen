@@ -91,6 +91,7 @@
   // })
 
   let prevFocusedNode: HTMLElement | null = null
+  let isInited = false
   $effect(() => {
     if (visible) {
       render = true
@@ -99,9 +100,15 @@
         // cmpStyle()
         anim = true
         prevFocusedNode = document.activeElement as HTMLElement
-        domContent!.focus()
+        if (isInited) domContent!.focus()
         unsub = onDomSizeChanged(domContent!, () => {
           cmpStyle()
+          if (!isInited) {
+            setTimeout(() => {
+              domContent!.focus()
+            }, 100)
+            isInited = true
+          }
         })
       })
       return () => {
