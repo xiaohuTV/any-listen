@@ -1,0 +1,31 @@
+#此工作流将对节点依赖项进行全新安装，缓存/恢复它们，构建源代码，并跨不同版本的节点运行测试
+#有关更多信息，请参见:https://docs . github . com/en/actions/automating-builds-and-tests/build-and-testing-nodejs
+
+名字: Node.js CI
+
+在:
+推:
+分支: [ "主要" ]
+拉取请求:
+分支: [ "主要" ]
+
+工作:
+建设:
+
+连续运行: Ubuntu-最新版
+
+战略:
+矩阵:
+节点版本: [18.x,20.x,22.x]
+        #请参见https://nodejs.org/en/about/releases/支持的Node.js发布时间表
+
+步伐:
+    - 使用: 动作/签出@v4
+    - 名字: 使用Node.js ${{矩阵.节点-版本}}
+使用: 动作/设置-节点@v4
+随着:
+节点版本: ${{矩阵.节点-版本}}
+隐藏物: ' npm '
+    - 奔跑: npm ci
+    - 奔跑: npm运行构建-如果存在
+    - 奔跑: npm测试
